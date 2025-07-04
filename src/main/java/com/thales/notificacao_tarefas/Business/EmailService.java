@@ -1,18 +1,15 @@
 package com.thales.notificacao_tarefas.Business;
-
 import com.thales.notificacao_tarefas.Business.DTO.TarefasDTO;
 import com.thales.notificacao_tarefas.InfraStructure.Exceptions.EmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -21,15 +18,17 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 @Service
-@RequiredArgsConstructor
-
+@SpringBootApplication
 public class EmailService {
 
 
     private final JavaMailSender javaMailSender;
     private final TemplateEngine templateEngine;
 
-
+    public EmailService(JavaMailSender javaMailSender, TemplateEngine templateEngine) {
+        this.javaMailSender = javaMailSender;
+        this.templateEngine = templateEngine;
+    }
 
     @Value("${envio.email.remetente}")
     public String remetente;
